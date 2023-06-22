@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.free.dao.FreeDao">
+	<select id="maxNum" resultType="int">
+		select nvl(max(num), 0) from free
+	</select>
+	
+	<insert id="insertData" parameterType="Free">
+		insert into Free VALUES(#{num}, #{name}, #{pwd}, #{email}, #{subject}, #{content}, #{ipAddr}, 0, sysdate, null)
+	</insert>
+	
+	<select id="getDataCount" parameterType="map" resultType="int">
+		select nvl(count(*), 0) from free where ${searchKey} like '%' || #{searchValue} || '%'
+	</select>
+	
+	<select id="getLists" parameterType="map" resultType="Free">
+		select * from(
+                select rownum rnum, data.*
+                from (select num, name, subject, hitCount, to_char(created, 'YYYY-MM-DD') created , img
+                      from Free where ${searchKey} like '%' || #{searchValue} || '%' order by num desc) data
+                      <![CDATA[          
+			              ) where rnum >= #{start} and rnum <= #{end}
+                      ]]>
+	</select>
+	
+	<update id="updateHitCount" parameterType="int">
+		update free set hitCount = hitCount +  1 where num = #{num}
+	</update>
+	
+<select id="getReadData" parameterType="int" resultType="Free">
+	select num,name,pwd,email,subject,content,IpAddr,
+	hitCount,created,img from Free where num=#{num}
+</select>
+
+<update id="updateData" parameterType="Free">
+	update free set name=#{name}, pwd=#{pwd}, email=#{email}, subject=#{subject}, 
+	content=#{content}, img=#{img} where num = #{num}
+</update>
+
+<delete id="deleteData" parameterType="int">
+	delete free where num =#{num}
+</delete>
+
+</mapper>

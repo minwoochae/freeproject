@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Shop Homepage - Start Bootstrap Template</title>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<th:block layout:fragment="css">
+<link rel="stylesheet" type="text/css" href="/css/list.css" />
+</th:block>
+<div layout:fragment="content" id="bbs">
+</head>
+<body>
+	<!-- Navigation-->
+	
+	<!-- Header-->
+	<header class="bg-dark py-5">
+		<div class="container px-4 px-lg-5 my-5">
+			<div class="text-center text-white">
+				<h1 class="display-4 fw-bolder">Shop in style</h1>
+				<div id="rightHeader">
+					<!--<추가>-->
+					<input type="button" value=" 추가 " class="btn2"
+						onclick="javascript:location.href='/created';" />
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Section-->
+	<section class="bodysection">
+		<div class="bodydiv">
+				<div style="width: 25%"></div>
+			<tr th:each="free:${lists}">
+					<div class="card h-100" style="width: 350px!important;height:450!important;">
+						<!-- Product image-->
+						<img th:src="@{${free.img}}" style="width: 310px;height:250; margin: 0 auto; " />
+						<!--이미지로드-->
+						
+						<!-- Product details-->
+						<div class="card-body p-4">
+							<div class="text-center">
+								<!-- Product name-->
+								<p>이 름:<td class="name" th:text="${free.name}"></td></p>
+								
+								<!-- 제목  -->
+								<p>제 목:<td class="subject"><a
+									th:href="|@{${articleUrl}}&num=@{${free.num}}|"
+									th:text="${free.subject}"></a></td></p>
+								
+						<div class="but">
+							<input type="button" value=" 수정 " class="btn2"
+								th:if="${#strings.isEmpty(errorMessage)}"
+								th:onclick="|location.href='updated?num=@{${free.num}}@{${params}}'|" />
+							<input type="button" value=" 삭제 " class="btn2"
+								th:if="${#strings.isEmpty(errorMessage)}"
+								th:onclick="|location.href='deleted_ok?num=@{${free.num}}&@{${params}}'|" />
+						</div>
+
+						</div>
+						</div>
+						<!-- Product actions-->
+						
+					</div>
+			</tr>
+						<div style="width: 25%"></div>
+		</div>
+							<div>
+								<tr th:if="${#lists.size(dataCount)} > 0">
+									<td colspan="5" id="footer"><a th:utext="${pageIndexList}"></a>
+									</td>
+								</tr>
+								<tr th:if="${#lists.size(dataCount)}< 0">
+									<td colspan="5">등록된 게시물이 없습니다.</td>
+								</tr>
+							</div>
+	</section>
+	<!-- Footer-->
+
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
+</body>
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+	var errorMessage = [[${errorMessage}]];
+	if(errorMessage !=null){
+		alert(errorMessage);
+	}
+		function sendIt() {
+			var f = document.myForm; //폼 태그
+			var str = f.subject.value; //제목에 입력된 값을 가져온다.
+			str = str.trim(); //공백을 앞뒤로 없애준다.
+			
+			if(!str){
+				alert("제목을 입력해주세요.");
+				f.subject.focus();
+				return;
+			}
+			str= f.name.value;
+			str= str.trim();
+			
+			if(!str) {
+				alert("이름을 입력하세요.");
+				f.name.focus;
+				return;
+			}
+			str = f.email.value;
+			str = str.trim();
+			if(str){
+				
+				if(!isValidEmail(str)){
+					alert("정상적인 이메일을 입력하세요!");
+					f.email.focus();
+					return;
+				}
+			}
+			str= f.content.value;
+			str= str.trim();
+			
+			if(!str) {
+				alert("내용을 입력하세요.");
+				f.content.focus;
+				return;
+			}
+			str= f.pwd.value;
+			str= str.trim();
+			
+			if(!str) {
+				alert("비밀번호을 입력하세요.");
+				f.pwd.focus;
+				return;
+			}
+			f.submit();
+		} 
+	</script>
+</th:block>
+</html>
