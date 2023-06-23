@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"> 
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
 <link rel="stylesheet" type="text/css" href="/css/list.css" />
 
 		<div th:fragment="header" class="header">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container px-4 px-lg-5">
-			<a class="navbar-brand" href="#!">Start Bootstrap</a>
+			<a class="navbar-brand" href="/list">Shop Homepage</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -15,23 +17,101 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#!">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+						aria-current="page"  href="/list">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="">About</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#!">All Products</a></li>
+							<li><a class="dropdown-item" href="">All Products</a></li>
 							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="#!">Popular Items</a></li>
-							<li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+							<li><a class="dropdown-item dropdown-item1" href="">Popular Items</a></li>
+							<li><a class="dropdown-item dropdown-item2" href="">New Arrivals</a></li>
 						</ul></li>
 				</ul>
-				<form class="d-flex">
+			<form action="/list" method="post" name="searchForm">
+					<select name="searchKey" class="selectField">
+						<option value="subject">제목</option>
+						<option value="name">작성자</option>
+						<option value="content">내용</option>
+					</select> 
+					<input type="text" name="searchValue" class="textField" /> 
 					<input type="button" value=" 검 색 " class="btn2" onclick="sendIt();" />
 				</form>
 			</div>
 		</div>
 	</nav>
 		</div>
+		<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		function sendIt() {
+			var f = document.myForm;
+			var str = f.subject.value; // 제목에 입력된 값을 가져온다.
+			str = str.trim(); // 공백 제거 함수
+
+			if (!str) {
+				alert("제목을 입력하세요.");
+				f.subject.focus();
+				return;
+			}
+
+			str = f.name.value;
+			str = str.trim();
+
+			if (!str) {
+				alert("이름을 입력하세요.");
+				f.name.focus();
+				return;
+			}
+
+			str = f.email.value;
+			str = str.trim();
+
+			// 이메일
+			if (str) {
+				if (!isValidEmail(str)) {
+					alert("정상적인 이메일을 입력하세요.");
+					f.email.focus();
+					return;
+				}
+
+			} else {
+				alert("이메일을 입력하세요.");
+				f.email.focus();
+				return;
+			}
+
+			// 내용
+			str = f.content.value;
+			str = str.trim();
+
+			if (!str) {
+				alert("내용을 입력하세요.");
+				f.content.focus();
+				return;
+			}
+
+			// 패스워드
+			str = f.pwd.value;
+			str = str.trim();
+
+			if (!str) {
+				alert("패스워드를 입력하세요.");
+				f.pwd.focus();
+				return;
+			}
+			// 이미지
+			str = f.img.value;
+			str = str.trim();
+
+			if (!str) {
+				alert("이미지를 입력해주세요.");
+				f.img.focus();
+				return;
+			}
+
+			f.submit();
+		}
+	</script>
+</th:block>
 </html>

@@ -8,7 +8,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Shop Homepage - Start Bootstrap Template</title>
+<title> Shop Homepage </title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -17,13 +17,12 @@
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <th:block layout:fragment="css">
-<link rel="stylesheet" type="text/css" href="/css/list.css" />
+	<link rel="stylesheet" type="text/css" href="/css/list.css" />
 </th:block>
 <div layout:fragment="content" id="bbs">
 </head>
 <body>
 	<!-- Navigation-->
-	
 	<!-- Header-->
 	<header class="bg-dark py-5">
 		<div class="container px-4 px-lg-5 my-5">
@@ -40,50 +39,62 @@
 	<!-- Section-->
 	<section class="bodysection">
 		<div class="bodydiv">
-				<div style="width: 25%"></div>
+			<div style="width: 25%"></div>
 			<tr th:each="free:${lists}">
-					<div class="card h-100" style="width: 350px!important;height:450!important;">
-						<!-- Product image-->
-						<img th:src="@{${free.img}}" style="width: 310px;height:250; margin: 0 auto; " />
-						<!--이미지로드-->
-						
-						<!-- Product details-->
-						<div class="card-body p-4">
-							<div class="text-center">
-								<!-- Product name-->
-								<p>이 름:<td class="name" th:text="${free.name}"></td></p>
-								
-								<!-- 제목  -->
-								<p>제 목:<td class="subject"><a
+				<div class="card h-100"
+					style="width: 350px !important; height: 450 !important;">
+					<!-- Product image-->
+					<img th:src="@{/img/} + ${free.img}"
+						style="width: 310px; height: 250 ; margin: 0 auto;" />
+					<!--이미지로드-->
+
+					<!-- Product details-->
+					<div class="card-body p-4">
+						<div class="text-center">
+							<!-- Product name-->
+							<p>
+								이 름:
+								<td class="name" th:text="${free.name}"></td>
+							</p>
+
+							<!-- 제목  -->
+							<p>
+								제 목:
+								<td class="subject"><a
 									th:href="|@{${articleUrl}}&num=@{${free.num}}|"
-									th:text="${free.subject}"></a></td></p>
-								
-						<div class="but">
-							<input type="button" value=" 수정 " class="btn2"
-								th:if="${#strings.isEmpty(errorMessage)}"
-								th:onclick="|location.href='updated?num=@{${free.num}}@{${params}}'|" />
-							<input type="button" value=" 삭제 " class="btn2"
-								th:if="${#strings.isEmpty(errorMessage)}"
-								th:onclick="|location.href='deleted_ok?num=@{${free.num}}&@{${params}}'|" />
-						</div>
+									th:text="${free.subject}"></a></td>
+							</p>
+
+							<div class="but">
+								<input type="hidden" name="num" th:value="${free.num}" /> <input
+									type="hidden" name="pageNum" th:value="${pageNum}" /> <input
+									type="hidden" name="searchKey" th:value="${searchKey}" /> <input
+									type="hidden" name="searchValue" th:value="${searchValue}" />
+								<input type="button" value=" 수정 " class="btn2"
+									th:if="${#strings.isEmpty(errorMessage)}"
+									th:onclick="|location.href='updated?num=@{${free.num}}&pageNum=@{${pageNum}}@{${params}}'|" />
+								<input type="button" value=" 삭제 " class="btn2"
+									th:if="${#strings.isEmpty(errorMessage)}"
+									th:onclick="|location.href='deleted_ok?num=@{${free.num}}&pageNum=@{${pageNum}}'|" />
+							</div>
 
 						</div>
-						</div>
-						<!-- Product actions-->
-						
 					</div>
+					<!-- Product actions-->
+
+				</div>
 			</tr>
-						<div style="width: 25%"></div>
+			<div style="width: 25%"></div>
 		</div>
-							<div>
-								<tr th:if="${#lists.size(dataCount)} > 0">
-									<td colspan="5" id="footer"><a th:utext="${pageIndexList}"></a>
-									</td>
-								</tr>
-								<tr th:if="${#lists.size(dataCount)}< 0">
-									<td colspan="5">등록된 게시물이 없습니다.</td>
-								</tr>
-							</div>
+		<div style="text-align: center;">
+			<tr th:if="${#lists.size(dataCount)} > 0">
+				<td colspan="5" id="footer"><a th:utext="${pageIndexList}"></a>
+				</td>
+			</tr>
+			<tr th:if="${#lists.size(dataCount)}< 0">
+				<td colspan="5">등록된 게시물이 없습니다.</td>
+			</tr>
+		</div>
 	</section>
 	<!-- Footer-->
 

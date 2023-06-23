@@ -55,13 +55,23 @@
 
 			<div class="bbsCreated_noLine">
 				<dl>
-					<dt>패스워드</dt>
+					<dt style="font: 10px;">패스워드</dt>
 					<dd>
 						<input type="password" name="pwd" size="35" maxlength="7"
 							class="boxTF" th:value="${free.pwd}" />
 					</dd>
 				</dl>
 			</div>
+				<div class="bbsCreated_noLine">
+				<dl>
+					<dt style="font: 10px;">이미지</dt>
+					<dd>
+						<input rows="20" name="img" size="35" maxlength="30"
+							class="boxTF" th:value="${free.img}" />
+					</dd>
+				</dl>
+			</div>
+
 
 		</div>
 
@@ -72,10 +82,9 @@
 				type="hidden" name="pageNum" th:value="${pageNum}" /> <input
 				type="hidden" name="searchKey" th:value="${searchKey}" /> <input
 				type="hidden" name="searchValue" th:value="${searchValue}" /> <input
-				type="button" value=" 수정하기 " class="btn2" onclick="sendIt();"
-				 th:onclick="|location.href='/updated?num=@{${free.num}}'|"/>
-				<input	type="button" value=" 수정취소 " class="btn2"
-				th:onclick="|location.href='/list?@{${params}}'|" />
+				type="button" value=" 수정하기 " class="btn2" onclick="sendIt();" /> <input
+				type="button" value=" 수정취소 " class="btn2"
+				th:onclick="|location.href='/list?'|" />
 		</div>
 
 	</form>
@@ -137,6 +146,15 @@
 			if (!str) {
 				alert("패스워드를 입력하세요.");
 				f.pwd.focus();
+				return;
+			}
+			// 이미지
+			str = f.img.value;
+			str = str.trim();
+
+			if (!str) {
+				alert("이미지를 입력해주세요.");
+				f.img.focus();
 				return;
 			}
 

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.free.dto.*;
 import com.example.free.util.*;
+import com.example.free.util.*;
+
 import com.example.free.service.FreeService;
 
 
@@ -39,7 +41,7 @@ public class FreeController {
 	}
 	// 게시물 등록(Post로 Request 들어올 때)
 		@RequestMapping(value = "/created", method = RequestMethod.POST)
-		public String createdOk(Free free, HttpServletRequest request, Model model) {
+		public String createdOk(Free free, HttpServletRequest request, Model model) {	
 			try {
 				int maxNum = freeService.maxNum();
 				free.setNum(maxNum + 1);
@@ -60,8 +62,9 @@ public class FreeController {
 		public String list(Free free, HttpServletRequest request, Model model) {
 			
 			try {
-				
+					
 				String pageNum = request.getParameter("pageNum"); // 바뀌는 페이지 번호
+				if(pageNum == null) pageNum = "1";
 				int currentPage = 1; // 현재 페이지 번호(디폴트는 1)
 				
 				if(pageNum != null) currentPage = Integer.parseInt(pageNum);
@@ -103,6 +106,7 @@ public class FreeController {
 					param += "&searchValue=" + URLEncoder.encode(searchValue, "UTF-8"); // 컴퓨터의 언어로 인코딩
 				}
 				
+				
 				String listUrl = "/list";
 				
 				// list?searchKey=name&searchValue=춘식
@@ -110,17 +114,18 @@ public class FreeController {
 				
 				String pageIndexList = myUtil.pageIndexList(currentPage, totalPage, listUrl);
 				
+				
 				String articleUrl = "/article?pageNum=" + currentPage;
 				
 				if(!param.equals("")) {
 					articleUrl += "&" + param;
 				}
+				model.addAttribute("pageNum", pageNum);
 				model.addAttribute("lists", lists);	// DB에서 가져온 전체 게시물
 				model.addAttribute("articleUrl", articleUrl);	// 상세 페이지로 이동하기 위한 url
 				model.addAttribute("pageIndexList", pageIndexList); // ◀이전 6 7 8 9 10 다음▶
 				model.addAttribute("dataCount", dataCount); // 전체 게시물의 갯수
 				model.addAttribute("params", param); // 전체 게시물의 갯수
-				System.out.println(param + "dsafosakdfajswdfkawfwaf");
 			} catch (Exception e) {
 				e.printStackTrace();
 				model.addAttribute("errorMessage", "리스트를 불러오는 중 에러가 발생하였습니다.");
@@ -191,7 +196,7 @@ public class FreeController {
 				if(free ==null) {
 					return "redirect:/list?pageNum=" + pageNum;
 				}
-				String param = "pageNum" + pageNum;
+				String param = "pageNum=" + pageNum;
 				
 				if(searchValue != null && !searchValue.equals("")) {
 					// searchValue에 검색어가 있으면
@@ -213,11 +218,12 @@ public class FreeController {
 		@RequestMapping(value = "/updated_ok", method = RequestMethod.POST)
 		public String updated_ok(Free free , HttpServletRequest request, Model model) {
 			
-			System.out.println(request.getParameter("pageNum"));
+			
 			String pageNum = request.getParameter("pageNum");
 			String searchKey = request.getParameter("searchKey");
 			String searchValue = request.getParameter("searchValue");
 			String param = "?pageNum=" + pageNum;
+
 			try {
 				free.setContent(free.getContent().replaceAll("<br/>", "\r\n"));
 				freeService.updateData(free);

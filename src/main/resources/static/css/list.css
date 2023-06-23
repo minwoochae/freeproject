@@ -90,7 +90,7 @@
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   
 }
 
@@ -3873,6 +3873,7 @@ textarea.form-control-lg {
     display: flex !important;
     flex-basis: auto;
   }
+	
   .navbar-expand-sm .navbar-toggler {
     display: none;
   }

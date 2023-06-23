@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertData" parameterType="Free">
-		insert into Free VALUES(#{num}, #{name}, #{pwd}, #{email}, #{subject}, #{content}, #{ipAddr}, 0, sysdate, null)
+		insert into Free VALUES(#{num}, #{name}, #{pwd}, #{email}, #{subject}, #{content}, #{ipAddr}, 0, sysdate, #{img})
 	</insert>
 	
 	<select id="getDataCount" parameterType="map" resultType="int">
@@ -31,13 +31,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 <select id="getReadData" parameterType="int" resultType="Free">
-	select num,name,pwd,email,subject,content,IpAddr,
-	hitCount,created,img from Free where num=#{num}
+	select * from Free where num=#{num}
 </select>
 
 <update id="updateData" parameterType="Free">
 	update free set name=#{name}, pwd=#{pwd}, email=#{email}, subject=#{subject}, 
-	content=#{content}, img=#{img} where num = #{num}
+	content=#{content} ,img = #{img} where num = #{num}
+
 </update>
 
 <delete id="deleteData" parameterType="int">

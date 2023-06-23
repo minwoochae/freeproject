@@ -29,18 +29,22 @@
 	text-align:left;
 }
 
+
+
 .bbsCreated_bottomLine {
 	height:35px;
 	line-height:35px;
 	border-bottom:1px solid #DBDBDB;
 	clear:both;
-	text-align:left;
+	text-align:right;
+	font-size:13px; 
 }
 .bbsCreated_noLine {
 	height:35px;
 	line-height:35px;
 	clear:both;
-	text-align:left;
+	text-align:right;
+	font-size:13px; 
 }
 
 #bbsCreated_content {
@@ -48,7 +52,8 @@
 	line-height:170px;
 	border-bottom:1px solid #DBDBDB;
 	clear:both;
-	text-align:left;
+	text-align:right;
+	font-size:13px; 
 }
 
 #bbsCreated dt {

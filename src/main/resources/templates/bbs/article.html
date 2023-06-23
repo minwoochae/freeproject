@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout1}">
+	layout:decorate="~{layouts/layout}">
 
 <!-- 각 페이지의 CSS가 작성될 위치 -->
 <th:block layout:fragment="css">
 	<link rel="stylesheet" type="text/css" href="css/article.css" />
+	<link rel="stylesheet" type="text/css" href="/css/list.css" />
+
 </th:block>
 
 <div layout:fragment="content" id="bbs">
@@ -13,7 +15,8 @@
 	<div id="bbsArticle">
 
 		<div id="bbsArticle_header">
-			<p th:if="${#strings.isEmpty(errorMessage)}" th:text="${free.subject}"></p>
+			<p th:if="${#strings.isEmpty(errorMessage)}"
+				th:text="${free.subject}"></p>
 		</div>
 
 		<div class="bbsArticle_bottomLine">
@@ -28,9 +31,11 @@
 		<div class="bbsArticle_bottomLine">
 			<dl>
 				<dt>등록일</dt>
-				<dd th:if="${#strings.isEmpty(errorMessage)}" th:text="${free.created}"></dd>
+				<dd th:if="${#strings.isEmpty(errorMessage)}"
+					th:text="${free.created}"></dd>
 				<dt>조회수</dt>
-				<dd th:if="${#strings.isEmpty(errorMessage)}" th:text="${free.hitCount}"></dd>
+				<dd th:if="${#strings.isEmpty(errorMessage)}"
+					th:text="${free.hitCount}"></dd>
 			</dl>
 		</div>
 
@@ -39,8 +44,9 @@
 				<tr>
 					<td style="padding-left: 20px 80px 20px 62px;" valign="top"
 						height="200"><textarea rows="12" cols="82" name="content"
-							style="border: none" class="boxTA" th:if="${#strings.isEmpty(errorMessage)}" th:text="${free.content}"></textarea>
-							</td>
+							style="border: none" class="boxTA"
+							th:if="${#strings.isEmpty(errorMessage)}"
+							th:text="${free.content}"></textarea></td>
 				</tr>
 			</table>
 		</div>
@@ -56,11 +62,17 @@
 
 	<div id="bbsArticle_footer">
 		<div id="leftFooter">
-			<input type="button" value=" 수정 " class="btn2" th:if="${#strings.isEmpty(errorMessage)}" th:onclick="|location.href='updated?num=@{${free.num}}&@{${params}}'|" /> 
-			<input type="button" value=" 삭제 " class="btn2" th:if="${#strings.isEmpty(errorMessage)}" th:onclick="|location.href='deleted_ok?num=@{${free.num}}&@{${params}}'|" />
+			<input type="button" value=" 수정 " class="btn2"
+				th:if="${#strings.isEmpty(errorMessage)}"
+				th:onclick="|location.href='updated?num=@{${free.num}}&@{${params}}'|" />
+			<input type="button" value=" 삭제 " class="btn2"
+				th:if="${#strings.isEmpty(errorMessage)}"
+				th:onclick="|location.href='deleted_ok?num=@{${free.num}}&@{${params}}'|" />
 		</div>
 		<div id="rightFooter">
-			<input type="button" value=" 리스트 " class="btn2" th:if="${#strings.isEmpty(errorMessage)}" th:onclick="|location.href='list?@{${params}}'|"/>
+			<input type="button" value=" 리스트 " class="btn2"
+				th:if="${#strings.isEmpty(errorMessage)}"
+				th:onclick="|location.href='list?@{${params}}'|" />
 		</div>
 	</div>
 </div>
