@@ -62,14 +62,16 @@
 					</dd>
 				</dl>
 			</div>
-				<div class="bbsCreated_noLine">
+			<div class="bbsCreated_noLine">
 				<dl>
 					<dt style="font: 10px;">이미지</dt>
 					<dd>
-						<input rows="20" name="img" size="35" maxlength="30"
-							class="boxTF" th:value="${free.img}" />
+						<input rows="20" name="img" size="40" maxlength="40" class="boxTF"
+							th:value="${free.img}" accept="/img/*" onchange="loadFile(this)"  type="file" style="height: 20px;"/>
 					</dd>
+							
 				</dl>
+							
 			</div>
 
 
